@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.lesson.dao.LessonMapper">
+	<resultMap type="com.spring.lesson.vo.LessonVO" id="lessonVO">
+		<result property="no" column="NO" />
+		<result property="lnum" column="L_NUM" />
+		<result property="lname" column="L_NAME" />
+	</resultMap>
+
+<select id="listLesson" parameterType="com.spring.lesson.vo.LessonVO" resultMap="lessonVO">
+	<!-- Mapper - listLesson -->
+		SELECT NO, L_NUM, L_NAME
+		FROM LESSON
+		<where>
+		 	<if test="lname != null and lname != ''">
+ 				L_NAME LIKE '%' || #{lname} || '%'
+			</if>
+		</where>
+		ORDER BY NO DESC
+</select>
+
+<select id="selectLesson" parameterType="int" resultMap="lessonVO">
+	<!-- Mapper - selectLesson -->
+		SELECT NO, L_NUM, L_NAME
+		FROM LESSON
+		WHERE NO = #{no}
+</select>
+
+<insert id="insertLesson" parameterType="com.spring.lesson.vo.LessonVO">
+	<!-- Mapper - insertLesson -->
+	<selectKey keyProperty="no" resultType="int" order="BEFORE">
+		select lesson_seq.nextval from dual	
+	</selectKey>
+		INSERT INTO LESSON
+			(NO, L_NUM, L_NAME)
+		VALUES
+			(#{no}, #{lnum}, #{lname})
+</insert>
+
+<update id="updateLesson" parameterType="com.spring.lesson.vo.LessonVO">
+	<!-- Mapper - updateLesson -->
+	UPDATE LESSON
+	SET L_NUM = #{lnum}, 
+		 L_NAME = #{lname} 
+	WHERE NO = #{no}
+</update>
+
+<delete id = "deleteLesson" parameterType="int">
+<!-- Mapper - deleteLesson -->
+	DELETE FROM LESSON WHERE NO = #{no}
+</delete>
+</mapper>

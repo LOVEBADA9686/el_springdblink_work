@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.dept.dao.DeptMapper">
+
+<resultMap type="com.spring.dept.vo.DeptVO" id="deptVO">
+	<result property="deptid" 	column="DEPT_ID"/>
+	<result property="deptname" column="DEPT_NAME"/>
+	<result property="depttel" 	column="DEPT_TEL"/>
+</resultMap>
+
+<select id="listDepartment" parameterType="com.spring.dept.vo.DeptVO" resultMap="deptVO">
+	<!-- 
+ 		쿼리문에 < 등 이스케이프 문자를 사용할 때는 
+ 		씨데이터 섹션 구문을 사용해야 한다. 
+			<![CDATA[ ]]>
+	-->
+	SELECT 	 DEPT_ID
+			,DEPT_NAME
+			,DEPT_TEL
+	FROM DEPARTMENT	
+	<where>
+	 	<if test="deptname != null and deptname != ''">
+	 		DEPT_NAME LIKE '%' || #{deptname} || '%'
+	 	</if>
+	</where>
+	ORDER BY 1
+</select>
+
+<select id="selectDepartment" parameterType="java.lang.String" resultMap="deptVO">
+	<!--  Mapper - selectDepartment  -->
+	SELECT 	 DEPT_ID
+			,DEPT_NAME
+			,DEPT_TEL
+	FROM DEPARTMENT
+	WHERE DEPT_ID = #{deptid}
+</select>
+
+<insert id="insertDepartment" parameterType="com.spring.dept.vo.DeptVO">
+	<!--  Mapper - insertDepartment  -->
+	INSERT INTO DEPARTMENT( DEPT_ID, DEPT_NAME, DEPT_TEL) 
+	                VALUES( #{deptid}, #{deptname}, #{depttel} )
+</insert>
+
+<update id="updateDepartment" parameterType="com.spring.dept.vo.DeptVO">
+	<!--  Mapper - updateDepartment  -->	
+ 
+	UPDATE DEPARTMENT SET DEPT_NAME = #{deptname}, 
+						 DEPT_TEL = #{depttel} 
+	WHERE DEPT_ID = #{deptid}
+ </update>
+ 
+<delete id="deleteDepartment" parameterType="com.spring.dept.vo.DeptVO">
+	<!--  Mapper - deleteDepartment  --> 
+ 	DELETE FROM DEPARTMENT WHERE DEPT_ID = #{deptid}
+</delete> 
+
+ 
+</mapper>
