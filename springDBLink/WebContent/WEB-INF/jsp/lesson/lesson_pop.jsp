@@ -74,7 +74,7 @@
 	<p></p>
 	<div>
 		<form id="lessonForm" name="lessonForm" method="POST">
-			<input type="hidden" id="no" value="${lessonVO.no}" />
+			<input type="hidden" id="no" name="no" value="${lessonVO.no}" />
 			<table border="1">
 				<thead>
 					<tr>

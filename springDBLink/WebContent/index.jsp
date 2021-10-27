@@ -8,7 +8,7 @@
 <body>
 <div>
 	<a href="listDepartment.k">[학과 데이터]</a><br>
-	<a href="lesson/listLesson.k">[과목 데이터]</a>		
+	<a href="lesson/listLesson.k">[과목 데이터]</a> <!-- lesson/ -->
 </div>
 </body>
 </html>

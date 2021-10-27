@@ -27,7 +27,12 @@ public class DepartmentController {
 	@RequestMapping("listDepartment")
 	public ModelAndView listDepartment(@ModelAttribute DeptVO param) {
 		logger.info("DepartmentController listDepartment >>>> ");
-
+		
+		System.out.println(param.toString());
+		param.setDeptname("51");
+		param.setDeptid("01");
+		param.setDepttel("03");
+		
 		List<DeptVO> list = deptService.listDepartment(param);
 		
 		ModelAndView mav = new ModelAndView();

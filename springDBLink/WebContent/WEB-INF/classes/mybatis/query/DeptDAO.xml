@@ -20,8 +20,8 @@
 			,DEPT_TEL
 	FROM DEPARTMENT	
 	<where>
-	 	<if test="deptname != null and deptname != ''">
-	 		DEPT_NAME LIKE '%' || #{deptname} || '%'
+	 	<if test="depttel != null and depttel != ''">
+	 		DEPT_TEL LIKE '%' || #{depttel} || '%'
 	 	</if>
 	</where>
 	ORDER BY 1
